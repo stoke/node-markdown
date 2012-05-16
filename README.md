@@ -6,9 +6,9 @@ node-markdown
 Installation
 ------------
 
-Use `npm` package manager
+This is a [node-markdown](https://github.com/andris9/node-markdown) fork, so it isn't on npm package manager.
 
-    npm install node-markdown
+Just clone and install it.
 
 Usage
 -----
@@ -19,39 +19,33 @@ Include Markdown parser
 
 Parse Markdown syntax into HTML
 
-    var html = md("**markdown** string");
+    var html = md({
+        text: "**markdown** string"
+    });
 
 Allow only [default set](http://github.com/andris9/node-markdown/blob/master/lib/markdown.js#L38) of HTML tags to be used
 
-    var html = md("**markdown** string", true);
+    var html = md({
+        text: "**markdown** string", 
+        strip: true
+    });
 
 Allow only specified HTML tags to be used (default set of allowed attributes is used)
 
-    var html = md("**markdown** string", true, "p|strong|span");
+    var html = md({
+        text: "**markdown** string", 
+        strip: true, 
+        allowedTags: "p|strong|span"
+    });
 
 Allow specified HTML tags and specified attributes
 
-    var html = md("**markdown** string", true, "p|strong|span", {
-        "a":"href",        // 'href' for links
-        "*":"title|style"  // 'title' and 'style' for all
-    });
-
-Complete example
-
-    var md_text = "**bold** *italic* [link](http://www.neti.ee) `code block`",
-        md_parser = require("node-markdown").Markdown;
-
-    // simple
-    console.log(md_parser(md_text));
-    
-    // limit HTML tags and attributes
-    console.log(md_parser(md_text, true, 'h1|p|span'));
-    
-    // limit HTML tags and keep attributes for allowed tags
-    var allowedTags = 'a|img';
-        allowedAttributes = {
-            'a':'href|style',
-            'img': 'src',
-            '*': 'title'
+    var html = md({
+        text: "**markdown** string", 
+        strip: true, 
+        allowedTags: "p|strong|span",
+        allowedAttributes: {
+            "a": "href",        // 'href' for links
+            "*": "title|style"  // 'title' and 'style' for all
         }
-    console.log(md_parser(md_text, true, allowedTags, allowedAttributes));
+    });
